@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace:该mapper.xml映射文件的 唯一标识 -->
+<mapper namespace="com.lz.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.lz.entity.User">
+        <id property="id" column="id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="email" column="email"/>
+        <result property="avatar" column="avatar"/>
+        <result property="type" column="type"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <!--新增用户-->
+    <insert id="saveUser" parameterType="com.lz.entity.User">
+        insert into t_user values (null,#{username},#{nickname},#{password},#{avatar},#{type});
+    </insert>
+
+    <!--显示所有用户-->
+    <select id="getAllUser" resultMap="BaseResultMap">
+        select * from t_user where id != '1';
+    </select>
+
+    <!--更改密码-->
+    <update id="updateUser">
+        update t_user set password=#{password} where id=#{id};
+    </update>
+
+    <!--更改用户状态-->
+    <update id="updateUserStatus">
+        update t_user set type = #{type} where id=#{id};
+    </update>
+
+    <!--通过名称获取用户-->
+    <select id="getUser" resultMap="BaseResultMap">
+        select * from t_user where username=#{username};
+    </select>
+
+    <select id="getUserById" resultMap="BaseResultMap">
+        select * from t_user where id=#{userid};
+    </select>
+</mapper>
